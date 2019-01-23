@@ -19,7 +19,7 @@ ZSH_THEME=""
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 DISABLE_AUTO_UPDATE="true"
-
+ZSH_DISABLE_COMPFIX="true"
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
 
@@ -121,17 +121,15 @@ alias toekube="cd ~/go/src/git.elenet.me/appos/eprockube"
 alias toplugin="cd ~/go/src/git.elenet.me/codedeploy"
 alias dockerCleanC="docker ps --filter "status=exited" | grep 'weeks ago' | awk '{print $1}' | xargs --no-run-if-empty docker rm"
 export PATH="/root/.pyenv/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-autoload -U promptinit; promptinit
-
 # alias docker cmd
 alias dnc="docker network create"
 alias dnr="docker network rm"
 alias dnl="docker network ls"
+eval "$(pyenv init -)"
+# eval "$(pyenv virtualenv-init -)" pyenv no more virtualenv-init
+autoload -U promptinit; promptinit
 # optionally define some options
 #PURE_CMD_MAX_EXEC_TIME=5
-
 prompt pure
 
 # disable software flow control
