@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=/root/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
@@ -75,7 +75,7 @@ source $ZSH/oh-my-zsh.sh
 
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
 ZSH_HIGHLIGHT_STYLES[comment]=fg=yellow
-export TERM="screen-256color"
+export TERM="xterm-256color"
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -87,7 +87,6 @@ export TERM="screen-256color"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 fpath=( "$HOME/.zfunctions" $fpath )
 HOMEBREW_NO_AUTO_UPDATE=1
-export PYENV_ROOT=/root/.pyenv
 export ETCDCTL_API=3
 export EDITOR=nvim
 export GO111MODULE=off
@@ -108,8 +107,6 @@ alias togo="cd ~/go/src"
 alias tomesos="cd ~/go/src/git.elenet.me/mesosmisc"
 alias tokpi="cd ~/go/src/git.elenet.me/tools-kpi"
 alias ls="ls -al --color=auto"
-export GOPATH="/root/go"
-export PATH=$PATH:$GOPATH"/bin:/usr/local/go/bin/"
 alias rabc="rabbitmqctl"
 alias clearlog="rm -f surge-info* surge-error*"
 alias toci="cd ~/go/src/git.elenet.me/codedeploy/ice"
@@ -120,7 +117,15 @@ alias toagent="cd ~/go/src/git.elenet.me/codedeploy/ice-agent"
 alias toekube="cd ~/go/src/git.elenet.me/appos/eprockube"
 alias toplugin="cd ~/go/src/git.elenet.me/codedeploy"
 alias dockerCleanC="docker ps --filter "status=exited" | grep 'weeks ago' | awk '{print $1}' | xargs --no-run-if-empty docker rm"
-export PATH="/root/.pyenv/bin:$PATH"
+if [[ -z $TMUX ]]; then
+    export GOPATH="$HOME/go"
+    export PATH=$PATH:$GOPATH"/bin:/usr/local/go/bin/"
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    if command -v pyenv 1>/dev/null 2>&1; then
+        eval "$(pyenv init -)"
+    fi
+fi
 # alias docker cmd
 alias dnc="docker network create"
 alias dnr="docker network rm"
