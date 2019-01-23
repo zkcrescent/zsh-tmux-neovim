@@ -1,0 +1,45 @@
+set nocompatible              " be iMproved, required
+filetype off                  " required
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" " alternatively, pass a path where Vundle should install plugins
+" "call vundle#begin('~/some/path/here')
+"
+" " let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'NLKNguyen/papercolor-theme' " color scheme
+Plugin 'Shougo/deoplete.nvim' " auto complete
+Plugin 'zchee/deoplete-go'
+" Plugin 'roxma/vim-hug-neovim-rpc' " deoplete dependencies
+" Plugin 'roxma/nvim-yarp' " deoplete dependencies
+"
+" " The following are examples of different formats supported.
+" " Keep Plugin commands between vundle#begin/end.
+Plugin 'tpope/vim-fugitive' " git plugin
+
+
+Plugin 'jlanzarotta/bufexplorer' " buf explorer
+
+Plugin 'scrooloose/nerdtree'  " nerd tree
+Plugin 'Xuyuanp/nerdtree-git-plugin' " nerd tree git plugin
+
+Plugin 'fatih/vim-go' " golang plugin
+" Plugin 'Valloric/YouCompleteMe' " auto complete
+Plugin 'mdempsky/gocode', {'rtp': 'vim/'}
+
+Plugin 'terryma/vim-multiple-cursors' " muti cursor
+
+Plugin 'vim-airline/vim-airline' " top & button bar
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
+Plugin 'majutsushi/tagbar' " tag bar
+Plugin 'jiangmiao/auto-pairs' " auto complete brackets
+Plugin 'kien/ctrlp.vim'  " file open
+Plugin 'tpope/vim-surround' " change all surroundings: parentheses, brackets ,quotes, XML tags etcs.
+Plugin 'easymotion/vim-easymotion' " hightlight searched words
+Plugin 'airblade/vim-gitgutter' " git diff
+call vundle#end()            " required
+filetype plugin indent on  
+"
