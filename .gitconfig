@@ -1,0 +1,24 @@
+[url "git@github.com:"]
+  insteadOf = "https://github.com/"
+[url "git@github.com:"]
+  pushInsteadOf = "https://github.com/"
+[url "git@github.com:"]
+  pushInsteadOf = "https://github.com/"
+[url "git@git.elenet.me:"]
+  insteadOf = "https://git.elenet.me/"
+[url "git@git.elenet.me:"]
+  pushInsteadOf = "https://git.elenet.me/"
+[url "git@git.elenet.me:"]
+  pushInsteadOf = "https://git.elenet.me/"
+[user]
+	name = 王白露
+	email = bailu.wang@ele.me
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+  interactive = auto
+  ui = true
+  pager = true
+[push]
+	default = matching
