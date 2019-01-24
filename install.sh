@@ -139,3 +139,11 @@ npm install -g neovim
 
 echo "deocomplete upldate remote plugins ..."
 vim +':UpdateRemotePlugins' +qall
+
+echo "install fzf ag ..."
+yum install -y epel-release.noarch the_silver_searcher
+
+echo "install docker ..."
+curl https://get.docker.com/ | sh
+
+echo "all fininshed , please relogin shell 🐂🍺"
