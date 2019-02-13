@@ -1,0 +1,16 @@
+[Unit]
+Description=daemons for something
+
+[Service]
+LimitAS=infinity
+LimitRSS=infinity
+LimitCORE=infinity
+LimitNOFILE=65536
+ExecStart=/usr/bin/aria2c --conf-path=/root/.aria2.conf
+Type=simple
+Restart=always
+RestartSec=60
+TimeoutSec=5
+
+[Install]
+WantedBy=multi-user.target

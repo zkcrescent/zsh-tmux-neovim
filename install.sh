@@ -11,6 +11,8 @@ echo "basick rcs: $basic_rcs"
 git clone $basic_rcs /tmp/zsh-tmux-neovim
 
 wget https://sourceforge.net/projects/zsh/files/zsh/5.6.2/zsh-5.6.2.tar.xz/download -O zsh.tar.xz
+
+yum install -y gcc-c++ gcc
 yum install -y xz
 yum install -y git
 yum install -y ncurses-devel
@@ -146,4 +148,9 @@ yum install -y epel-release.noarch the_silver_searcher
 echo "install docker ..."
 curl https://get.docker.com/ | sh
 
+echo "install aria2 ..."
+yum install -y epel-release aria2
+cp aria.service /usr/lib/systemd/system/aria.service
+cp .aria2.conf ~/
+systemctl start aria
 echo "all fininshed , please relogin shell 🐂🍺"
