@@ -11,10 +11,12 @@ echo "basick rcs: $basic_rcs"
 git clone $basic_rcs /tmp/zsh-tmux-neovim
 
 wget https://sourceforge.net/projects/zsh/files/zsh/5.6.2/zsh-5.6.2.tar.xz/download -O zsh.tar.xz
-
+# install git
+wget https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.19.0.tar.gz
 yum install -y gcc-c++ gcc
+tar -xvzf git-2.19.0.tar.gz
+cd git-2.19.0 && ./configure && make && make install && cd .. && rm -rf git-2.19.0.tar.gz git-2.19.0
 yum install -y xz
-yum install -y git
 yum install -y ncurses-devel
 yum install -y ruby
 yum install -y node
