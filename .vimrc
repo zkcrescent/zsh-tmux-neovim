@@ -12,7 +12,7 @@ set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
-
+set maxmempattern=2000000
 " For regular expressions turn magic on
 set magic
 
@@ -80,12 +80,23 @@ map <leader>t<leader> :tabnext
 inoremap <silent><expr> <TAB>
     \ pumvisible() ? "\<C-n>" :
     \ <SID>check_back_space() ? "\<TAB>" :
-    \ deoplete#mappings#manual_complete()
+    \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" :"\<C-h>"
+
 function! s:check_back_space() abort "{{{
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~ '\s'
 endfunction"}}}
 
+" Use `[c` and `]c` for navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
@@ -220,10 +231,12 @@ call vundle#begin()
 " "call vundle#begin('~/some/path/here')
 "
 " " let Vundle manage Vundle, required
+
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'NLKNguyen/papercolor-theme' " color scheme
-Plugin 'Shougo/deoplete.nvim' " auto complete
-Plugin 'zchee/deoplete-go'
+Plugin 'neoclide/coc.nvim'
+" Plugin 'Shougo/deoplete.nvim' " auto complete
+" Plugin 'zchee/deoplete-go'
 " Plugin 'roxma/vim-hug-neovim-rpc' " deoplete dependencies
 " Plugin 'roxma/nvim-yarp' " deoplete dependencies
 "
@@ -268,6 +281,7 @@ let g:airline#extensions#tabline#fnnamemod = ':t'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => fzf 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+map <leader>a :Ag <CR>
 nmap <leader><tab> <plug>(fzf-maps-n)
 xmap <leader><tab> <plug>(fzf-maps-x)
 omap <leader><tab> <plug>(fzf-maps-o)

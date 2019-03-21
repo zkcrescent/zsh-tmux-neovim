@@ -52,10 +52,8 @@ ZSH_DISABLE_COMPFIX="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(yum git autojump zsh-syntax-highlighting brew  zsh-autosuggestions  docker)
-
+plugins=(yum git autojump zsh-syntax-highlighting zsh-autosuggestions  docker)
 source $ZSH/oh-my-zsh.sh
-
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -74,7 +72,7 @@ source $ZSH/oh-my-zsh.sh
 # export ARCHFLAGS="-arch x86_64"
 
 # export SSH_KEY_PATH="~/.ssh/rsa_id"
-ZSH_HIGHLIGHT_STYLES[comment]=fg=yellow
+#ZSH_HIGHLIGHT_STYLES[comment]=fg=yellow
 export TERM="xterm-256color"
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -85,12 +83,14 @@ export TERM="xterm-256color"
 # alias zshconfig="mate ~/.zshrc"
 
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+fpath+=('/opt/node/lib/node_modules/pure-prompt/functions')
 fpath=( "$HOME/.zfunctions" $fpath )
 HOMEBREW_NO_AUTO_UPDATE=1
 export ETCDCTL_API=3
 export EDITOR=nvim
-export GO111MODULE=off
+export GO111MODULE=on
 export GIT_EDITOR="nvim"
+alias godep="GO111MODULE=off go build -i"
 alias ls="ls -al --color"
 alias pc="export http_proxy=http://127.0.0.1:1081;export https_proxy=http://127.0.0.1:1081;"
 alias upc="unset http_proxy;unset https_proxy;"
@@ -102,6 +102,7 @@ alias tidy="GO111MODULE=on go mod tidy"
 alias mod="export GO111MODULE=on"
 alias umod="export GO111MODULE=off"
 alias goget="GO111MODULE=on go get"
+alias gop="export GOPROXY=http://hyl.tools.elenet.me:3000"
 alias vim="nvim"
 alias togo="cd ~/go/src"
 alias tomesos="cd ~/go/src/git.elenet.me/mesosmisc"
@@ -111,33 +112,59 @@ alias rabc="rabbitmqctl"
 alias clearlog="rm -f surge-info* surge-error*"
 alias toci="cd ~/go/src/git.elenet.me/codedeploy/ice"
 alias gobuild="go build -i -v"
+alias cgobuild="CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -i -v"
 alias totest="cd ~/go/src/test"
 alias toyaml="cd ~/go/src/git.elenet.me/codedeploy/ice-yaml"
 alias toagent="cd ~/go/src/git.elenet.me/codedeploy/ice-agent"
 alias toekube="cd ~/go/src/git.elenet.me/appos/eprockube"
 alias toplugin="cd ~/go/src/git.elenet.me/codedeploy"
 alias dockerCleanC="docker ps --filter "status=exited" | grep 'weeks ago' | awk '{print $1}' | xargs --no-run-if-empty docker rm"
-if [[ -z $TMUX ]]; then
-    export GOPATH="$HOME/go"
-    export PATH=$PATH:$GOPATH"/bin:/usr/local/go/bin/"
-    export PYENV_ROOT="$HOME/.pyenv"
-    export PATH="$PYENV_ROOT/bin:$PATH"
-    if command -v pyenv 1>/dev/null 2>&1; then
-        eval "$(pyenv init -)"
-    fi
-fi
 # alias docker cmd
 alias dnc="docker network create"
 alias dnr="docker network rm"
 alias dnl="docker network ls"
-eval "$(pyenv init -)"
-# eval "$(pyenv virtualenv-init -)" pyenv no more virtualenv-init
+alias modon="export GO111MODULE=on"
+alias modoff="export GO111MODULE=off"
+if [[ -z $TMUX ]]; then
+    export GOPATH="$HOME/go"
+    export PATH=$PATH:$GOPATH"/bin:/usr/local/go/bin/:/usr/local/libexec/git-core/"
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+    if command -v pyenv 1>/dev/null 2>&1; then
+        eval "$(pyenv init -)"
+    fi
+fi
+# eval "$(pyenv init -)"
+# eval "$(pyenv virtualenv-init -)"
 autoload -U promptinit; promptinit
+
 # optionally define some options
 #PURE_CMD_MAX_EXEC_TIME=5
-prompt pure
+
+ prompt pure
 
 # disable software flow control
 stty -ixon
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+function iceload {
+    host=""
+    if [[ $1 && $1 > 0 ]] {
+        host="|grep ice-"$1
+    }
+    ss=""
+    if [[ $2 ]] {
+        ss="|grep "$2
+    }
+    appendex=""
+    if [[  $3 ]] {
+        appendex=$3
+    }
+     she="etcdctl --endpoints=ice.tools.elenet.me:2379 get --prefix /ice-agent $host $ss $appendex"
+     echo $she
+     bash -c $she
+}
+
+

@@ -107,6 +107,9 @@ cp /tmp/zsh-tmux-neovim/.zshrc ~/.zshrc
 echo  $(which zsh)>>/etc/shells
 chsh -s $(which zsh)
 
+echo "install node ...."
+curl -sL install-node.now.sh | sh
+
 echo "install github.com/sindresorhus/pure zsh theme ..."
 npm install --global pure-prompt
 
@@ -140,10 +143,9 @@ pip install pynvim
 pip3 install pynvim
 npm install -g neovim
 # gem install neovim
-
-echo "deocomplete upldate remote plugins ..."
-vim +':UpdateRemotePlugins' +qall
-
+echo "install golang server for coc vim ..."
+# TODO: coco install dependences
+GO111MODULE=off go get -u github.com/sourcegraph/go-langserver
 echo "install fzf ag ..."
 yum install -y epel-release.noarch the_silver_searcher
 
